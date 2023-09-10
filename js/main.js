@@ -83,7 +83,7 @@ async function sortCountries(fl){
     }
 }
 
-sortCountries('europe')
+// sortCountries('europe')
 
 let option = document.querySelector('#hero-select').value
 // let option = cardParent.options[cardParent.selectedIndex].value;
