@@ -12,7 +12,7 @@ async function showCountries(){
         let str = ''
         data.map((country)=>{
             str+=`
-            <div class="card">
+            <a href="./page.html"class="card">
             <img src='${country.flags.png}' alt='${country.flags.alt}'>
             <div class="card__content">
                 <h1>${country.name.common}</h1>
@@ -31,7 +31,7 @@ async function showCountries(){
                     <p>${country.capital}</p>
                 </div>
             </div>
-        </div>
+        </a>
             `
         })  
         cardParent.innerHTML = str    
@@ -83,9 +83,48 @@ async function sortCountries(fl){
     }
 }
 
-// sortCountries('europe')
+async function searchCountry(search){
+    let response = await fetch(`${regionURL}/name/${search}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    })
+    let result = await response.json()
+    let str = ''
+        data.filter((country)=>{
+            str+=`
+            <div class="card">
+            <img src='${country.flags.png}' alt='${country.flags.alt}'>
+            <div class="card__content">
+                <h1>${country.name.common}</h1>
+                <div class="card__info">
+                    <h3>Population: </h3>
+                    <p>${country.population}</p>
+                </div>
+
+                <div class="card__info">
+                    <h3>Region:</h3>
+                    <p>${country.region}</p>
+                </div>
+
+                <div class="card__info">
+                    <h3>Capital:</h3>
+                    <p>${country.capital}</p>
+                </div>
+            </div>
+        </div>
+            `
+    })   
+}
+
+searchCountry('uzbekistan')
+
+let search = document.querySelector('#hero-search').value
+// sortCountries('asia')
 
 let option = document.querySelector('#hero-select').value
-// let option = cardParent.options[cardParent.selectedIndex].value;
 
-console.log(option);
+
+  
+  function goDetails(id) {
+    localStorage.setItem('carId', JSON.stringify(id));
+  }
